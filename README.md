@@ -1,1 +1,107 @@
-# node-express-api
+# Express API Project
+
+This project is a simple RESTful API built with Express.js, Sequelize, and PostgreSQL. It provides CRUD operations for managing tasks, allowing you to create, read, update, and delete task records.
+
+## Features
+
+- **CRUD Operations**: Create, read, update, and delete tasks.
+- **Database Integration**: Uses PostgreSQL as the database with Sequelize ORM for object-relational mapping.
+- **Environment Configuration**: Utilizes dotenv for environment variable management.
+- **ES6+ Support**: Written using modern JavaScript features.
+
+## Requirements
+
+- **Node.js**: Ensure you have Node.js (version 12 or later) installed.
+- **PostgreSQL**: A running PostgreSQL server to connect to.
+
+## Getting Started
+
+### Installation
+
+1. **Clone the Repository**
+
+   Clone this repository to your local machine:
+
+   ```bash
+   git clone https://github.com/your-username/express-api.git
+   cd express-api
+   ```
+   
+2. **Install Dependencies**
+
+   Run the following command to install all necessary packages:
+
+   ```bash
+   npm install
+   ```
+   
+3. **Environment Setup**
+
+   Create a .env file in the root directory of the project and provide the necessary environment variables. An example configuration is provided below:
+
+   ```bash
+   DB_NAME=express_api
+   DB_USER=your_username
+   DB_PASSWORD=your_password
+   DB_HOST=localhost
+   DB_PORT=5432
+   ```
+   
+4. **Database Setup**
+
+   Ensure your PostgreSQL server is running and create a database matching the DB_NAME value in your .env file:
+
+   ```bash
+   CREATE DATABASE express_api;
+   ```
+   
+   Run the following command to apply the database migrations:
+   ```bash
+   npm run migrate
+   ```
+
+### Running the Application
+
+Start the server with:
+
+   ```bash
+   npm start
+   ```
+
+The server will start on http://localhost:3000. You can customize the port in the app.js file if needed.
+
+## API Endpoints
+
+- **GET /tasks**: Retrieve all tasks
+- **POST /tasks**: Create a new task
+- **GET /tasks/:id**:  Retrieve a specific task by ID
+- **PUT /tasks/:id**: Update a task by ID
+- **DELETE /tasks/:id**: Delete a task by ID
+
+### Example Request
+
+To create a new task, send a POST request to /tasks with the following JSON payload:
+
+   ```bash
+   {
+     "title": "Learn Node.js",
+     "completed": false
+   }
+   ```
+
+## Development
+
+If you want to contribute or modify this project, ensure you are using a compatible Node.js version and have PostgreSQL installed locally.
+
+### Development Commands:
+
+- **Run Migrations**:
+   ```bash
+   npm run migrate
+   ```
+  
+- **Seed Database**: Create a new task
+   ```bash
+   npm run seed
+   ```
+  
