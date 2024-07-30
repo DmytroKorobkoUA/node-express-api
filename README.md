@@ -104,4 +104,10 @@ If you want to contribute or modify this project, ensure you are using a compati
    ```bash
    npm run seed
    ```
-  
+
+## Testing
+
+### Run Tests:
+   ```bash
+   npm test
+   ```

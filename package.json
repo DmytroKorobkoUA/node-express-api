@@ -1,11 +1,13 @@
 {
   "name": "express-api",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "app.js",
+  "type": "module",
   "scripts": {
+    "start": "node app.js",
     "migrate": "dotenv -e .env npx babel-node --require @babel/register ./node_modules/sequelize-cli/lib/sequelize db:migrate --config config/config.js",
     "seed": "dotenv -e .env npx babel-node --require @babel/register ./node_modules/sequelize-cli/lib/sequelize db:seed:all --config config/config.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --require @babel/register"
   },
   "keywords": [],
   "author": "",
@@ -25,6 +27,9 @@
     "@babel/node": "^7.25.0",
     "@babel/preset-env": "^7.25.2",
     "@babel/register": "^7.24.6",
-    "dotenv-cli": "^7.4.2"
+    "chai": "^5.1.1",
+    "chai-http": "^5.0.0",
+    "dotenv-cli": "^7.4.2",
+    "mocha": "^10.7.0"
   }
 }
