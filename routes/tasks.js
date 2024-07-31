@@ -1,9 +1,11 @@
 import express from 'express';
 import Task from '../models/task.js';
+import authMiddleware from '../middleware/auth.js';
 
 const router = express.Router();
 
-router.get('/', async (req, res) => {
+// Get all tasks
+router.get('/', authMiddleware, async (req, res) => {
     try {
         const tasks = await Task.findAll();
         res.json(tasks);
@@ -12,7 +14,8 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.get('/:id', async (req, res) => {
+// Get task by ID
+router.get('/:id', authMiddleware, async (req, res) => {
     try {
         const task = await Task.findByPk(req.params.id);
         if (task) {
@@ -25,7 +28,8 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-router.post('/', async (req, res) => {
+// Create new task
+router.post('/', authMiddleware, async (req, res) => {
     try {
         const task = await Task.create(req.body);
         res.status(201).json(task);
@@ -34,7 +38,8 @@ router.post('/', async (req, res) => {
     }
 });
 
-router.put('/:id', async (req, res) => {
+// Update existed task
+router.put('/:id', authMiddleware, async (req, res) => {
     try {
         const task = await Task.findByPk(req.params.id);
         if (task) {
@@ -48,7 +53,8 @@ router.put('/:id', async (req, res) => {
     }
 });
 
-router.delete('/:id', async (req, res) => {
+// Remove existed task
+router.delete('/:id', authMiddleware, async (req, res) => {
     try {
         const task = await Task.findByPk(req.params.id);
         if (task) {
