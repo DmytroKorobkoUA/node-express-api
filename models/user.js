@@ -16,6 +16,11 @@ const User = sequelize.define('User', {
         type: DataTypes.STRING,
         allowNull: false,
     },
+    role: {
+        type: DataTypes.ENUM('user', 'admin'),
+        allowNull: false,
+        defaultValue: 'user',
+    },
 });
 
 User.hasMany(Task, { foreignKey: 'userId' });

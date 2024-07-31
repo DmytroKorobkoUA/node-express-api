@@ -2,6 +2,8 @@ import express from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from '../models/user.js';
+import authMiddleware from '../middleware/auth.js';
+import authorize from '../middleware/authorize.js';
 
 const router = express.Router();
 
@@ -30,7 +32,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // Create new user
-router.post('/', async (req, res) => {
+router.post('/', authMiddleware, authorize('admin'), async (req, res) => {
     try {
         const user = await User.create(req.body);
         res.status(201).json(user);
@@ -40,7 +42,7 @@ router.post('/', async (req, res) => {
 });
 
 // Update existed user
-router.put('/:id', async (req, res) => {
+router.put('/:id', authMiddleware, authorize('admin'), async (req, res) => {
     try {
         const user = await User.findByPk(req.params.id);
         if (user) {
@@ -55,7 +57,7 @@ router.put('/:id', async (req, res) => {
 });
 
 // Remove existed user
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', authMiddleware, authorize('admin'), async (req, res) => {
     try {
         const user = await User.findByPk(req.params.id);
         if (user) {
@@ -72,7 +74,7 @@ router.delete('/:id', async (req, res) => {
 // Sign up
 router.post('/register', async (req, res) => {
     try {
-        const { name, email, password } = req.body;
+        const { name, email, password, role } = req.body;
 
         const existingUser = await User.findOne({ where: { email } });
         if (existingUser) {
@@ -80,8 +82,8 @@ router.post('/register', async (req, res) => {
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
-        const user = await User.create({ name, email, password: hashedPassword });
-        const token = jwt.sign({ userId: user.id }, 'secret_key', { expiresIn: '1h' });
+        const user = await User.create({ name, email, password: hashedPassword, role });
+        const token = jwt.sign({ userId: user.id, role: user.role }, 'secret_key', { expiresIn: '1h' });
 
         res.status(201).json({ token });
     } catch (error) {
@@ -104,7 +106,7 @@ router.post('/login', async (req, res) => {
             return res.status(401).json({ message: 'Invalid email or password' });
         }
 
-        const token = jwt.sign({ userId: user.id }, 'secret_key', { expiresIn: '1h' });
+        const token = jwt.sign({ userId: user.id, role: user.role }, 'secret_key', { expiresIn: '1h' });
 
         res.json({ token });
     } catch (error) {

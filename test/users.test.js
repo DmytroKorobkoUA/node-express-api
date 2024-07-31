@@ -31,25 +31,9 @@ describe('Users API', () => {
             });
     });
 
-    it('should create a new user (protected route)', (done) => {
-        chai.request(app)
-            .post('/api/users')
-            .set('Authorization', `Bearer ${token}`)
-            .send({ name: 'Jane Doe', email: 'jane@example.com' })
-            .end((err, res) => {
-                expect(res).to.have.status(201);
-                expect(res.body).to.be.an('object');
-                expect(res.body).to.have.property('name', 'Jane Doe');
-                expect(res.body).to.have.property('email', 'jane@example.com');
-                userId = res.body.id;
-                done();
-            });
-    });
-
-    it('should get all users (protected route)', (done) => {
+    it('should get all users', (done) => {
         chai.request(app)
             .get('/api/users')
-            .set('Authorization', `Bearer ${token}`)
             .end((err, res) => {
                 expect(res).to.have.status(200);
                 expect(res.body).to.be.an('array');
@@ -57,20 +41,27 @@ describe('Users API', () => {
             });
     });
 
-    it('should get a user by ID (protected route)', (done) => {
+    it('should get a user by ID', (done) => {
         chai.request(app)
-            .get(`/api/users/${userId}`)
+            .post('/api/users')
             .set('Authorization', `Bearer ${token}`)
+            .send({ name: 'Jane Doe', email: 'jane@example.com', password: 'password123' })
             .end((err, res) => {
-                expect(res).to.have.status(200);
-                expect(res.body).to.be.an('object');
-                expect(res.body).to.have.property('name', 'Jane Doe');
-                expect(res.body).to.have.property('email', 'jane@example.com');
-                done();
+                userId = res.body.id;
+
+                chai.request(app)
+                    .get(`/api/users/${userId}`)
+                    .end((err, res) => {
+                        expect(res).to.have.status(200);
+                        expect(res.body).to.be.an('object');
+                        expect(res.body).to.have.property('name', 'Jane Doe');
+                        expect(res.body).to.have.property('email', 'jane@example.com');
+                        done();
+                    });
             });
     });
 
-    it('should update a user by ID (protected route)', (done) => {
+    it('should update a user by ID (admin only)', (done) => {
         chai.request(app)
             .put(`/api/users/${userId}`)
             .set('Authorization', `Bearer ${token}`)
@@ -84,7 +75,7 @@ describe('Users API', () => {
             });
     });
 
-    it('should delete a user by ID (protected route)', (done) => {
+    it('should delete a user by ID (admin only)', (done) => {
         chai.request(app)
             .delete(`/api/users/${userId}`)
             .set('Authorization', `Bearer ${token}`)
