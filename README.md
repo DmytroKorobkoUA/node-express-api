@@ -92,13 +92,13 @@ The server will start on http://localhost:3000. You can customize the port in th
 
 ### User Authentication
 
-- **JWT Authentication**: The API uses JSON Web Tokens (JWT) for authentication. Include the token in the Authorization header for endpoints that require authentication.
-- **Role-Based Access Control**: Certain endpoints require admin privileges, enforced via middleware.
+- **POST /users/register**: Register a new user
+- **POST /users/login**: Log in an existing user
 
 ## Authentication and Authorization
 
-- **POST /users/register**: Register a new user
-- **POST /users/login**: Log in an existing user
+- **JWT Authentication**: The API uses JSON Web Tokens (JWT) for authentication. Include the token in the Authorization header for endpoints that require authentication.
+- **Role-Based Access Control**: Certain endpoints require admin privileges, enforced via middleware.
 
 ### Example Request
 
