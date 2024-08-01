@@ -4,6 +4,9 @@ This project is a simple RESTful API built with Express.js, Sequelize, and Postg
 
 ## Features
 
+- **User Registration and Authentication**: Allows users to register and log in using JWT tokens.
+- **User Management**: Admins can manage users, including creating, updating, and deleting users.
+- **User Roles**: Supports various user roles, including admin and regular users.
 - **CRUD Operations**: Create, read, update, and delete tasks.
 - **Database Integration**: Uses PostgreSQL as the database with Sequelize ORM for object-relational mapping.
 - **Environment Configuration**: Utilizes dotenv for environment variable management.
@@ -72,11 +75,30 @@ The server will start on http://localhost:3000. You can customize the port in th
 
 ## API Endpoints
 
+### Task Management
+
 - **GET /tasks**: Retrieve all tasks
 - **POST /tasks**: Create a new task
 - **GET /tasks/:id**:  Retrieve a specific task by ID
 - **PUT /tasks/:id**: Update a task by ID
 - **DELETE /tasks/:id**: Delete a task by ID
+
+### User Management (Admin Only)
+
+- **GET /admin/users**: Retrieve all users
+- **POST /admin/users**: Create a new user
+- **GET /admin/users/:id**:  Retrieve a specific user by ID
+- **PUT /admin/users/:id**: Update a user by ID
+
+### User Authentication
+
+- **JWT Authentication**: The API uses JSON Web Tokens (JWT) for authentication. Include the token in the Authorization header for endpoints that require authentication.
+- **Role-Based Access Control**: Certain endpoints require admin privileges, enforced via middleware.
+
+## Authentication and Authorization
+
+- **POST /users/register**: Register a new user
+- **POST /users/login**: Log in an existing user
 
 ### Example Request
 
