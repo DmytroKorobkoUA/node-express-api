@@ -26,7 +26,7 @@ This project is a simple RESTful API built with Express.js, Sequelize, and Postg
    Clone this repository to your local machine:
 
    ```bash
-   git clone https://github.com/your-username/express-api.git
+   git clone https://github.com/DmytroKorobkoUA/express-api.git
    cd express-api
    ```
    
