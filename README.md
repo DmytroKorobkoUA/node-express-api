@@ -102,12 +102,27 @@ The server will start on http://localhost:3000. You can customize the port in th
 
 ### Example Request
 
+#### Creating a New Task
+
 To create a new task, send a POST request to /tasks with the following JSON payload:
 
    ```bash
    {
      "title": "Learn Node.js",
      "completed": false
+   }
+   ```
+
+#### User Registration
+
+To register a new user, send a POST request to /users/register with the following JSON payload:
+
+   ```bash
+   {
+     "name": "John Doe",
+     "email": "john.doe@example.com",
+     "password": "securepassword",
+     "role": "user" // or "admin"
    }
    ```
 
