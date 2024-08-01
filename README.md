@@ -137,7 +137,7 @@ If you want to contribute or modify this project, ensure you are using a compati
    npm run migrate
    ```
   
-- **Seed Database**: Create a new task
+- **Seed Database**:
    ```bash
    npm run seed
    ```
@@ -148,3 +148,10 @@ If you want to contribute or modify this project, ensure you are using a compati
    ```bash
    npm test
    ```
+
+## Security Considerations
+
+- **JWT Authentication**: The API uses JSON Web Tokens (JWT) for authentication. Include the token in the Authorization header for endpoints that require authentication.
+- **Password Hashing**: User passwords are hashed using bcrypt before being stored in the database.
+- **Environment Variable**: Store sensitive information in environment variables to keep them secure.
+  
